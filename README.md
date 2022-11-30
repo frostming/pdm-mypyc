@@ -1,96 +1,47 @@
-# onepm
+# pdm-mypyc
 
-Picks the right package manager for you
+`pdm-mypyc` is a build hook for [pdm-backend](https://github.com/pdm-project/pdm-backend) to compile source files with
+[mypyc](https://mypyc.readthedocs.io/).
 
-Don't make me think about which package manager to use when I clone a project from other people. OnePM will pick the right package manager by searching for the lock files and/or the project settings in `pyproject.toml`.
+## Activate the hook
 
-This project is created in the same spirit as [@antfu/ni](https://www.npmjs.com/package/@antfu/ni).
+To enable the hook, simply add it to the `build-system.requires`:
 
-Supported package managers: [pip], [pipenv], [poetry], [pdm]
-
-[pip]: https://pypi.org/project/pip/
-[pipenv]: https://pypi.org/project/pipenv/
-[poetry]: https://pypi.org/project/poetry/
-[pdm]: https://pypi.org/project/pdm/
-
-## Install onepm
-
-Install with `pipx`:
-
-```bash
-pipx install onepm
+```toml
+[build-system]
+requires = ["pdm-mypyc", "pdm-backend"]
+build-backend = "pdm.backend"
 ```
 
-Or use pdm global install:
+Besides, you can also disable it temporarily by setting environment variable `PDM_BUILD_WITHOUT_MYPYC` to `1`.
 
-```bash
-pdm add -g onepm
+## Configuration
+
+### Include and exclude files
+
+By default, all `.py` files included by the `tool.pdm.build` configuration will be compiled with mypyc. You can override
+it with the `includes` and `excludes` settings under `tool.pdm.build.hooks.mypyc` table:
+
+```toml
+[tool.pdm.build.hooks.mypyc]
+includes = ["src/**/*.py"]
+excludes = ["src/**/tests/*.py"]  # these files will be excluded **in addition to** the excluded files in the build config
 ```
 
-## Provided Shortcuts
+### Mypy arguments
 
-### `pi` - install
+You can supply supported [mypy command line options](https://mypy.readthedocs.io/en/stable/command_line.html) to the `mypycify` function with `mypy-args` setting:
 
-```bash
-pi
-
-# (venv) pip install . or pip install -r requirements.txt
-# pipenv install
-# poetry install
-# pdm install
+```toml
+[tool.pdm.build.hooks.mypyc]
+mypy-args = ["--disallow-untyped-defs", "--disallow-any-generics"]
 ```
 
-```bash
-pi requests
+### Options
 
-# (venv) pip install requests
-# pipenv install requests
-# poetry add requests
-# pdm add requests
+You can specify options to pass to the [mypycify](https://github.com/python/mypy/blob/v0.930/mypyc/build.py#L429) function.
+
+```toml
+[tool.pdm.build.hooks.mypyc.options]
+opt_level = "3"
 ```
-
-### `pu` - update
-
-```bash
-pu
-
-# not available for pip
-# pipenv update
-# poetry update
-# pdm update
-```
-
-### `pr` - run
-
-```bash
-pr ...args
-
-# (venv) ...args
-# pipenv run ...args
-# poetry run ...args
-# pdm run ...args
-```
-
-### `pun` - uninstall
-
-```bash
-pun requests
-
-# pip uninstall requests
-# pipenv uninstall requests
-# poetry remove requests
-# pdm remove requests
-```
-
-### `pa` - Alias for the package manager
-
-```bash
-pa
-
-# pip
-# pipenv
-# poetry
-# pdm
-```
-
-If the package manager agent is pip, **OnePM will enforce an activated virtualenv, or a `.venv` under the current directory**.

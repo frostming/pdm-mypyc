@@ -1,0 +1,18 @@
+[project]
+name = "test-project"
+version = "0.1.0"
+description = "Test project"
+authors = [
+    {name = "Frost Ming", email = "me@frostming.com"},
+]
+dependencies = []
+requires-python = ">=3.7"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.pdm.build.hooks.mypyc]
+excludes = ["foo/__init__.py"]
+
+[build-system]
+requires = ["pdm-mypy"]
+build-backend = "pdm.backend"

@@ -1,11 +1,13 @@
 [project]
-name = "onepm"
-description = "Picks the right package manager for you"
+name = "pdm-mypyc"
+description = "A PDM build hook to compile source files with mypyc"
 authors = [
-    {name = "Frost Ming", email = "mianghong@gmail.com"},
+    {name = "Frost Ming", email = "me@frostming.com"},
 ]
 dependencies = [
-    "tomli>=2.0.1; python_version < \"3.11\"",
+    "mypy",
+    "setuptools",
+    "pdm-backend"
 ]
 requires-python = ">=3.7"
 readme = "README.md"
@@ -17,19 +19,16 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3 :: Only",
 ]
 
 [project.urls]
-Homepage = "https://github.com/frostming/onepm"
-Changelog = "https://github.com/frostming/onepm/releases"
+Homepage = "https://github.com/frostming/pdm-mypyc"
+Changelog = "https://github.com/frostming/pdm-mypyc/releases"
 
-[project.scripts]
-pi = "onepm:pi"
-pu = "onepm:pu"
-pr = "onepm:pr"
-pun = "onepm:pun"
-pa = "onepm:pa"
+[project.entry-points."pdm.build.hook"]
+mypyc = "pdm_mypyc:MypycBuildHook"
 
 [tool.pdm]
 version = {source = "scm"}
@@ -40,5 +39,5 @@ test = [
 ]
 
 [build-system]
-requires = ["pdm-pep517>=0.12.0"]
-build-backend = "pdm.pep517.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
