@@ -62,7 +62,7 @@ class MypycBuildHook:
         builder.config = context.config
         files = sorted(
             k
-            for k in builder._collect_files(context, context.root)
+            for k in builder._collect_files(context)
             if k.endswith(".py")
         )
         setup_kwargs.update(ext_modules=mypycify([*args, *files], **options))
