@@ -7,7 +7,7 @@ authors = [
 dependencies = [
     "mypy",
     "setuptools",
-    "pdm-backend"
+    "pdm-backend<3.0.0,>=2.0.2",
 ]
 requires-python = ">=3.7"
 readme = "README.md"

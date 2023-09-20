@@ -6,7 +6,7 @@ groups = ["default", "test"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:fa721a5d8b2abbc6852865a10848b6666405da3e678fdb0fe69a2b8ff27eef68"
+content_hash = "sha256:cce1026eb07a614fae1500395f6c597452ca5ce1f276bda86535e5f3fd47351c"
 
 [[package]]
 name = "atomicwrites"
@@ -129,15 +129,15 @@ files = [
 
 [[package]]
 name = "pdm-backend"
-version = "2.0.0a3"
+version = "2.1.6"
 requires_python = ">=3.7"
 summary = "The build backend used by PDM that supports latest packaging standards"
 dependencies = [
     "importlib-metadata>=3.6; python_version < \"3.10\"",
 ]
 files = [
-    {file = "pdm-backend-2.0.0a3.tar.gz", hash = "sha256:6be2a02bb27740706aac19ca3ac41f834b4b1f4b5936dece054c12e255b4fb5f"},
-    {file = "pdm_backend-2.0.0a3-py3-none-any.whl", hash = "sha256:85208d8dae16c6b80add16b89ac8bf3b279f5c0f608d5dbad605ffc4db7276f1"},
+    {file = "pdm_backend-2.1.6-py3-none-any.whl", hash = "sha256:fb53cdc1c9f291c5750c8fb1f50118d0f71d9f64370dc6fd092e35d353e8e795"},
+    {file = "pdm_backend-2.1.6.tar.gz", hash = "sha256:75cdee279ce99df3ce9c53c5c81e3cc1cd3f9fa901eeb14d2bc88ab770daf92d"},
 ]
 
 [[package]]
